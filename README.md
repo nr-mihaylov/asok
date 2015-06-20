@@ -2,3 +2,6 @@
 
 # asok
 fadeit's programming assigments.
+
+**Available assignments:**
+- [flask assigment](flask)
