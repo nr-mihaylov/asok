@@ -1,9 +1,10 @@
 # flask assignment
 
 Requirements:
-- py3
-- virtualenv
+- [pythan 3.4](https://docs.python.org/3/)
+- [pip](https://pip.pypa.io/en/latest/index.html)
 - bash, zsh or similar
+- [virtualenv](https://virtualenv.pypa.io/en/latest/) (optional)
 
 ## Setup project
 ```bash
@@ -37,10 +38,10 @@ Here we have a boilerplate flask application with 2 [blueprints](http://flask.po
 - lng
 
 **Additional tasks:**
-- make it possible to update locations (PUT /api/locations/<locid>)
-- make it possible to delete locations (DELETE /api/locations/<locid>)
-- write unit and/or end-to-end tests for the REST API
-- style the page with [](http://getbootstrap.com/)
+- make it possible to update locations (PUT /api/locations/&lt;locid&gt;)
+- make it possible to delete locations (DELETE /api/locations/&lt;locid&gt;)
+- write unit and/or end-to-end tests for the REST API with [Flask-Testing](https://pythonhosted.org/Flask-Testing/) or [unittest](https://docs.python.org/3/library/unittest.html) .
+- style the page with [Bootstrap](http://getbootstrap.com/)
 
 **Delivery**
 
