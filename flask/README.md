@@ -45,7 +45,7 @@ Here we have a boilerplate flask application with 2 [blueprints](http://flask.po
 
 **Delivery**
 
-Your fork of this assignment should be publicly accessible (e.g. github). Furthermore, you should either host the resulting webapp and send us a link or provide an easy-to-follow instructions for setting it up in your code.
+Your fork of this assignment should be publicly accessible (e.g. github). Furthermore, you should either host the resulting webapp and send us a link or provide an easy-to-follow instructions, in your code, for setting it up.
 
 ## Relevant docs
 - [flask](http://flask.pocoo.org/)
