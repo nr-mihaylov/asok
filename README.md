@@ -1,7 +1,7 @@
 ![intern asok](asok.png)
 
 # asok
-fadeit's programming assigments.
+fadeit's programming assignments.
 
 **Available assignments:**
-- [flask assigment](flask)
+- [flask assignment](flask)
