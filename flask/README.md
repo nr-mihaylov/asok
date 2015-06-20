@@ -1,7 +1,7 @@
 # flask assignment
 
 Requirements:
-- [pythan 3.4](https://docs.python.org/3/)
+- [python 3.4](https://docs.python.org/3/)
 - [pip](https://pip.pypa.io/en/latest/index.html)
 - bash, zsh or similar
 - [virtualenv](https://virtualenv.pypa.io/en/latest/) (optional)
