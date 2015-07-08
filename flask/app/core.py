@@ -1,7 +1,7 @@
 from flask import Flask
 
 
-def create_app(config_path=None):
+def create_app():
     '''Flask app factory function'''
 
     app = Flask(__name__)
