@@ -1,5 +1,6 @@
 from flask import Flask
-
+from .api import api as api_blueprint
+from .frontend import frontend as frontend_blueprint
 
 def create_app():
     '''Flask app factory function'''
@@ -11,10 +12,6 @@ def create_app():
 
     return app
 
-
 def _setup_blueprints(app):
-    from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
-
-    from .frontend import frontend as frontend_blueprint
     app.register_blueprint(frontend_blueprint, url_prefix='')

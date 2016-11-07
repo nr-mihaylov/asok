@@ -1,31 +1,80 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style type="text/css">
-      html, body, #map-canvas { height: 500px; width: 500px; margin: 0; padding: 0;}
-    </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: { lat: 56.1572, lng: 10.2107},
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+    <head>
 
-        //TODO: saving and retrieving locations
-        google.maps.event.addListener(map, 'click', function(evt) {
-            console.log("clicked on map!");
-        });
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-  </head>
-  <body>
+        <title>Map app</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/s/css/style.css">
 
-<div id="map-canvas"></div>
-  </body>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-lg-12">
+                <h1>Location Manager</h1>
+            </div>
+            <div class="col-lg-6">
+                <div id="map_canvas"></div>
+                <form class="create-location">
+                    <h2>Create location</h2>
+                    <div class="form-group">
+                        <label for="create_title">Title</label>
+                        <input id="create_title" class="form-control" type="text" name="title">
+                        
+                        <label for="create_description">Description</label>
+                        <input id="create_description" class="form-control" type="text" name="description">
+                        
+                        <label for="create_latitude">Latitude</label>
+                        <input id="create_latitude" class="form-control" type="text" name="latitude">
+                        
+                        <label for="create_longtitude">Longtitude</label>
+                        <input id="create_longtitude" class="form-control" type="text" name="longitude">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Create">
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <ul class="locations-list"></ul>
+            </div>
+        </div>
+    </body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="update-location">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Update location</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="update_title">Title</label>
+                            <input id="update_title" class="form-control" type="text" name="title">
+                            
+                            <label for="update_description">Description</label>
+                            <input id="update_description" class="form-control" type="text" name="description">
+                            
+                            <label for="update_latitude">Latitude</label>
+                            <input id="update_latitude" class="form-control" type="text" name="latitude">
+                            
+                            <label for="update_longitude">Longtitude</label>
+                            <input id="update_longitude" class="form-control" type="text" name="longitude">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="update_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input id="update_complete" type="submit" class="btn btn-primary" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="/s/js/script.js"></script>
 </html>
