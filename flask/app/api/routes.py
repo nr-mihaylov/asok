@@ -43,6 +43,9 @@ def location():
 
         if not 'title' in params:
             return jsonify(error="Missing title"), 400
+        else:
+            if params['title'] == "" or params['title'].isspace():
+                return jsonify(error="Title cannot be empty"), 400
 
         if not 'latitude' in params:
             return jsonify(error="Missing latitude"), 400
