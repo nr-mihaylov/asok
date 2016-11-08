@@ -1,12 +1,39 @@
 $(window).ready(function() {
 
+    var createFormSelec     =   'create-location',
+        updateFormSelec     =   'update-location';
+
+    function selecToClass(selec) {
+        return '.' + selec;
+    }
+
+    function selecToId(selec) {
+        return '#' + selec;
+    }
+
+
     var LocationManager = function() {
 
-        var createLocSelec = '.create-location';
-        var updateLocSelec = '.update-location';
-        var updateSelec = 'location-update';
-        var deleteSelec = 'location-delete';
-        var list = $('.locations-list');
+        var createTitleSelec    =   'create_title',
+            createDescSelec     =   'create_description',
+            createLatSelec      =   'create_latitude',
+            createLngSelec      =   'create_longitude',
+            
+            updateTitleSelec    =   'update_title',
+            updateDescSelec     =   'update_description',
+            updateLatSelec      =   'update_latitude',
+            updateLngSelec      =   'update_longitude',
+
+            locTitleSelec       =   'location-title',
+            locDescSelec        =   'location-description',
+            locLatSelec         =   'location-latitude',
+            locLngSelec         =   'location-longitude',
+
+            deleteSelec         =   'location-delete',
+            updateSelec         =   'location-update',
+
+            listSelec           =   'locations-list',
+            mapSelec            =   'map_canvas';
 
         var markerArray = {}
 
@@ -18,16 +45,14 @@ $(window).ready(function() {
             zoom: 1
         };
 
-        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        var map = new google.maps.Map(document.getElementById(mapSelec), mapOptions);
 
         google.maps.event.addListener(map, 'click', function(evt) {
-            $('#create_latitude').val(evt.latLng.lat());
-            $('#create_longitude').val(evt.latLng.lng());
+            $(selecToId(createLatSelec)).val(evt.latLng.lat());
+            $(selecToId(createLngSelec)).val(evt.latLng.lng());
         });
         
-        function getFieldVal(formSelec, name) {
-            return $(formSelec + ' input[name=' + name + ']').val()
-        }
+
 
         function newListItem(location) {
 
@@ -35,22 +60,22 @@ $(window).ready(function() {
             item.attr('data-locid', location.id);
 
             var title = $('<h3></h3>')
-            .addClass('location-title')
+            .addClass(locTitleSelec)
             .text(location.title)
             .appendTo(item);
 
             $('<p></p>')
-            .addClass('location-latitude')
+            .addClass(locLatSelec)
             .text(location.latitude)
             .appendTo(item);
 
             $('<p></p>')
-            .addClass('location-longitude')
+            .addClass(locLngSelec)
             .text(location.longitude)
             .appendTo(item);
 
             $('<p></p>')
-            .addClass('location-description')
+            .addClass(locDescSelec)
             .text(location.description)
             .appendTo(item);
 
@@ -70,7 +95,7 @@ $(window).ready(function() {
             .addClass('btn-danger')
             .appendTo(item);
 
-            list.append(item);
+            $(selecToClass(listSelec)).append(item);
 
             return item;
 
@@ -96,21 +121,21 @@ $(window).ready(function() {
                 var newLocation = newListItem(location);
                 var locId = newLocation.attr('data-locid');
 
-                var updateBtn = newLocation.find('.' + updateSelec)
+                var updateBtn = newLocation.find(selecToClass(updateSelec))
                 updateBtn.click(function() {
 
-                    $('.location-update').attr('data-locid', locId);
-                    $('#update_title').val(newLocation.find('.location-title').text());
-                    $('#update_latitude').val(newLocation.find('.location-latitude').text());
-                    $('#update_longitude').val(newLocation.find('.location-longitude').text());
-                    $('#update_description').val(newLocation.find('.location-description').text());
+                    $(selecToClass(updateFormSelec)).attr('data-locid', locId);
+                    $(selecToId(updateTitleSelec)).val(newLocation.find(selecToClass(locTitleSelec)).text());
+                    $(selecToId(updateLatSelec)).val(newLocation.find(selecToClass(locLatSelec)).text());
+                    $(selecToId(updateLngSelec)).val(newLocation.find(selecToClass(locLngSelec)).text());
+                    $(selecToId(updateDescSelec)).val(newLocation.find(selecToClass(locDescSelec)).text());
                     
                     if(updateCallback) 
                         updateCallback(locId);
 
                 });
 
-                var deleteBtn = newLocation.find('.' + deleteSelec)
+                var deleteBtn = newLocation.find(selecToClass(deleteSelec))
                 deleteBtn.click(function() {
                     if(deleteCallback) 
                         deleteCallback(locId);
@@ -127,7 +152,7 @@ $(window).ready(function() {
             },
             getLocation: function(id) {
 
-                var items = list.find('li');
+                var items = $(selecToClass(listSelec)).find('li');
 
                 for(var i=0; i<items.length; i++) {
 
@@ -153,30 +178,30 @@ $(window).ready(function() {
                 marker.setMap(map);
 
                 var element = this.getLocation(location.id);
-                element.find('.location-title').text(location.title);
-                element.find('.location-latitude').text(location.latitude);
-                element.find('.location-longitude').text(location.longitude);
-                element.find('.location-description').text(location.description);
+                element.find(selecToClass(locTitleSelec)).text(location.title);
+                element.find(selecToClass(locLatSelec)).text(location.latitude);
+                element.find(selecToClass(locLngSelec)).text(location.longitude);
+                element.find(selecToClass(locDescSelec)).text(location.description);
 
             },
             getCreateFormData: function() {
 
                 return {
-                    title:          getFieldVal(createLocSelec, 'title'),
-                    description:    getFieldVal(createLocSelec, 'description'),
-                    latitude:       getFieldVal(createLocSelec, 'latitude'),
-                    longitude:      getFieldVal(createLocSelec, 'longitude')
+                    title:          $(selecToId(createTitleSelec)).val(),
+                    description:    $(selecToId(createDescSelec)).val(),
+                    latitude:       $(selecToId(createLatSelec)).val(),
+                    longitude:      $(selecToId(createLngSelec)).val(),
                 }
 
             },
             getUpdateFormData: function() {
 
                 return {
-                    id:             parseInt($('.location-update').attr('data-locid')),
-                    title:          getFieldVal(updateLocSelec, 'title'),
-                    description:    getFieldVal(updateLocSelec, 'description'),
-                    latitude:       getFieldVal(updateLocSelec, 'latitude'),
-                    longitude:      getFieldVal(updateLocSelec, 'longitude')
+                    id:             parseInt($(selecToClass(updateFormSelec)).attr('data-locid')),
+                    title:          $(selecToId(updateTitleSelec)).val(),
+                    description:    $(selecToId(updateDescSelec)).val(),
+                    latitude:       $(selecToId(updateLatSelec)).val(),
+                    longitude:      $(selecToId(updateLngSelec)).val(),
                 }
 
             }
@@ -213,7 +238,7 @@ $(window).ready(function() {
     });
 
     // Create location
-    $('.create-location').submit(function(event) {
+    $(selecToClass(createFormSelec)).submit(function(event) {
 
         event.preventDefault();
 
@@ -222,7 +247,7 @@ $(window).ready(function() {
             data: lManager.getCreateFormData(),
             success: function(response) {
 
-                $('.create-location input[type=text]').val('');
+                $(selecToClass(createFormSelec) + ' input[type=text]').val('');
                 lManager.addLocation(response.location, null, function(id) {
 
                     //Delete location
@@ -245,7 +270,7 @@ $(window).ready(function() {
 
     });
 
-    $('.update-location').submit(function(event) {
+    $(selecToClass(updateFormSelec)).submit(function(event) {
 
         event.preventDefault();
 
