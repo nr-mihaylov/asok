@@ -31,11 +31,7 @@ class AppTest(unittest.TestCase):
         # Get all locations
 
         result = self.app.get('/api/locations')
-
         assert result.status_code == 200
-
-        print('GET_LOCATIONS')
-        print(result.data.decode('utf-8'))
 
         # Create a new location
 
@@ -49,20 +45,13 @@ class AppTest(unittest.TestCase):
         newLocDic = resultDic['location']
         self.id = newLocDic['id'];
 
+        assert b'"message": "Location created"' in result.data
         assert result.status_code == 201
-
-        print('POST_LOCATION')
-        print(resultStr)
 
         # Retrieve the newly created location
 
         result = self.app.get('/api/location/' + str(self.id))
-        resultStr = result.data.decode('utf-8')
-
         assert result.status_code == 200 or result.status_code == 404
-
-        print('GET_LOCATION')
-        print(resultStr)
 
         # Update the newly created location
 
@@ -71,18 +60,12 @@ class AppTest(unittest.TestCase):
             data='id=' + str(self.id) + '&title=' + self.newTitle, 
             content_type='application/x-www-form-urlencoded'
         )
-        resultStr = result.data.decode('utf-8')
-
-        print('PUT_LOCATION')
-        print(resultStr)
+        assert bytes(self.newTitle, 'utf-8') in result.data
 
         # Delete the updated location
 
         result = self.app.delete('/api/location/' + str(self.id))
-        resultStr = result.data.decode('utf-8')
-
-        print('DELETE_LOCATION')
-        print(resultStr)
+        assert b'Location deleted' in result.data
 
 
 if __name__ == '__main__':
